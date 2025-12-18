@@ -27,5 +27,16 @@ public class Agenda {
         }
     }
 
-    // Aquí puedes ir agregando buscar, eliminar, modificar, etc.
+    public Contacto[] getContactos() {
+        return contactos;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public int setContador(int contador){
+        return contador;
+    }
+// Aquí puedes ir agregando buscar, eliminar, modificar, etc.
 }
