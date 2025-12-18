@@ -87,33 +87,59 @@ public class MenuOpciones {
 
 
 
+    public static void modificarTelefono(Scanner sc) {
+        if (agenda == null) {
+            System.out.println("⚠️ Primero debes crear una agenda.");
+            return;
+        }
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Apellido: ");
+        String apellido = sc.nextLine();
+        System.out.print("Nuevo teléfono: ");
+        String nuevoTelefono = sc.nextLine();
+        if (agenda.modificarTelefonoUsuario(nombre, apellido, nuevoTelefono)) {
+            System.out.println("✅ Teléfono modificado correctamente.");
+        } else {
+            System.out.println("❌ Contacto no existe.");
+        }
+    }
 
+    public static boolean agendaLlena() {
+        if (agenda == null) return false;
 
-    public static void modificarTelefono(Scanner sc) { /* ... */ }
+        boolean llena = agenda.getContador() >= agenda.getCapacidad();
 
+        if (llena) {
+            System.out.println("❌ La agenda está llena. No puedes agregar más contactos.");
+        } else {
+            System.out.println("✅ Hay espacio disponible en la agenda.");
+        }
+        return llena;
+    }
 
-
-
-
-
-
-
-    public static void agendaLlena() { /* ... */ }
-
-
-
-
-
-
-
-    public static void espaciosLibres() { /* ... */ }
-
-
-
-
-
-
-
-
-
+    public static int espaciosLibres() {
+        if (agenda == null) {
+            System.out.println("⚠️ No hay una agenda creada.");
+            return 0;
+        }
+        int libres = agenda.getCapacidad() - agenda.getContador();
+        if (libres > 0) {
+            System.out.println("✅ Espacios libres en la agenda: " + libres);
+        } else {
+            System.out.println("❌ No hay espacios libres en la agenda.");
+        }
+        return libres;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

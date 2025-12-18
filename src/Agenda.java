@@ -27,5 +27,31 @@ public class Agenda {
         }
     }
 
-    // Aquí puedes ir agregando buscar, eliminar, modificar, etc.
+    public boolean modificarTelefonoUsuario(String nombre, String apellido, String nuevoTelefono) {
+        Contacto c = buscarContacto(nombre, apellido);
+        if (c != null) {
+            c.setTelefono(nuevoTelefono);
+            return true;
+        }
+        return false;
+    }
+
+    public Contacto buscarContacto(String nombre, String apellido) {
+        for (int i = 0; i < contador; i++) {
+            Contacto c = contactos[i];
+            if (c.getNombre().equalsIgnoreCase(nombre) &&
+                    c.getApellido().equalsIgnoreCase(apellido)) {
+                return c; // Contacto encontrado
+            }
+        }
+        return null; // No se encontró
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
 }
