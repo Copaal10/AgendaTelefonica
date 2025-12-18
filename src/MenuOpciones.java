@@ -40,30 +40,80 @@ public class MenuOpciones {
 
 
 
-    public static void verificarContacto(Scanner sc) { /* ... */ }
+    public static void verificarContacto(Scanner sc) {
+
+        if (agenda == null) {
+            System.out.println("⚠️ Primero debes crear una agenda.");
+            return;
+        }
+
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Apellido: ");
+        String apellido = sc.nextLine();
+
+        boolean encontrado = false;
+
+        for (int i = 0; i < agenda.getContador(); i++) {
+            Contacto contacto = agenda.getContactos()[i];
+
+            if (contacto.getNombre().equalsIgnoreCase(nombre) &&
+                    contacto.getApellido().equalsIgnoreCase(apellido)) {
+
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            System.out.println("✅ El contacto ya existe.");
+        } else {
+            System.out.println("❌ El contacto no existe.");
+        }
+    }
 
 
+    public static void listarContactos() {
 
+        if (agenda == null) {
+            System.out.println("⚠️ Primero debes crear una agenda.");
+            return;
+        }
 
+        if (agenda.getContador() == 0) {
+            System.out.println("⚠️ No hay contactos.");
+            return;
+        }
 
+        Contacto[] contactos = agenda.getContactos();
+        int contador = agenda.getContador();
 
+        for (int i = 0; i < contador - 1; i++) {
+            for (int j = 0; j < contador - i - 1; j++) {
 
+                Contacto c1 = contactos[j];
+                Contacto c2 = contactos[j + 1];
 
+                int cmpNombre = c1.getNombre()
+                        .compareToIgnoreCase(c2.getNombre());
 
+                if (cmpNombre > 0 ||
+                        (cmpNombre == 0 &&
+                                c1.getApellido().compareToIgnoreCase(c2.getApellido()) > 0)) {
 
-    public static void listarContactos() { /* ... */ }
+                    Contacto temp = contactos[j];
+                    contactos[j] = contactos[j + 1];
+                    contactos[j + 1] = temp;
+                }
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
+        // Mostrar
+        for (int i = 0; i < contador; i++) {
+            System.out.println(contactos[i]);
+        }
+    }
 
 
     public static void buscarContacto(Scanner sc) {
@@ -98,36 +148,45 @@ public class MenuOpciones {
 
     public static void eliminarContacto(Scanner sc) {
         if (agenda == null) {
-        System.out.println("⚠️ Primero debes crear una agenda.");
-        return;
-    }
+            System.out.println("⚠️ Primero debes crear una agenda.");
+            return;
+        }
+
         System.out.print("Ingrese el nombre a eliminar: ");
         String buscarNombre = sc.nextLine();
+
         System.out.print("Ingrese el apellido: ");
         String buscarApellido = sc.nextLine();
+
         Contacto[] contactos = agenda.getContactos();
         int total = agenda.getContador();
 
-        int contador = -1;
+        int indice = -1;
+
         for (int i = 0; i < total; i++) {
-            Contacto contacto = contactos[i];
-            if (contacto.getNombre().equalsIgnoreCase(buscarNombre) && contacto.getApellido().equalsIgnoreCase(buscarApellido)) {
-                contador = i;
+            if (contactos[i].getNombre().equalsIgnoreCase(buscarNombre)
+                    && contactos[i].getApellido().equalsIgnoreCase(buscarApellido)) {
+                indice = i;
                 break;
             }
         }
-        if (contador == -1) {
+
+        if (indice == -1) {
             System.out.println("❌ Contacto no encontrado.");
             return;
         }
 
-        for (int i = contador; i < total - 1; i++) {
+        for (int i = indice; i < total - 1; i++) {
             contactos[i] = contactos[i + 1];
         }
+
+        contactos[total - 1] = null;
+
         agenda.setContador(total - 1);
 
         System.out.println("✅ Contacto eliminado correctamente.");
     }
+
 
     public static void modificarTelefono(Scanner sc) {
         if (agenda == null) {
