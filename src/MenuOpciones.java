@@ -66,26 +66,68 @@ public class MenuOpciones {
 
 
 
-    public static void buscarContacto(Scanner sc) { /* ... */ }
+    public static void buscarContacto(Scanner sc) {
+        if (agenda == null) {
+            System.out.println("⚠️ Primero debes crear una agenda.");
+            return;
+        }
+        System.out.print("Ingrese el nombre a buscar: ");
+        String buscarNombre = sc.nextLine();
+        boolean encontrado = false;
+        System.out.print("Ingrese el apellido: ");
+        String buscarApellido = sc.nextLine();
+        Contacto[] contactos = agenda.getContactos();
+        int total = agenda.getContador();
+        for (int i = 0; i < total; i++) {
+            Contacto contacto = contactos[i];
+            if (contacto.getNombre().equalsIgnoreCase(buscarNombre) && contacto.getApellido().equalsIgnoreCase(buscarApellido)) {
+                System.out.println("Contacto encontrado: ");
+                System.out.println("Nombre : " + contacto.getNombre());
+                System.out.println("Apellido : " + contacto.getApellido());
+                System.out.println("Telefono : " + contacto.getTelefono());
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("❌ Contacto no encontrado.");
+        }
+    }
 
 
 
+    public static void eliminarContacto(Scanner sc) {
+        if (agenda == null) {
+        System.out.println("⚠️ Primero debes crear una agenda.");
+        return;
+    }
+        System.out.print("Ingrese el nombre a eliminar: ");
+        String buscarNombre = sc.nextLine();
+        System.out.print("Ingrese el apellido: ");
+        String buscarApellido = sc.nextLine();
+        Contacto[] contactos = agenda.getContactos();
+        int total = agenda.getContador();
 
+        int contador = -1;
+        for (int i = 0; i < total; i++) {
+            Contacto contacto = contactos[i];
+            if (contacto.getNombre().equalsIgnoreCase(buscarNombre) && contacto.getApellido().equalsIgnoreCase(buscarApellido)) {
+                contador = i;
+                break;
+            }
+        }
+        if (contador == -1) {
+            System.out.println("❌ Contacto no encontrado.");
+            return;
+        }
 
+        for (int i = contador; i < total - 1; i++) {
+            contactos[i] = contactos[i + 1];
+        }
+        agenda.setContador(total - 1);
 
-
-
-
-
-    public static void eliminarContacto(Scanner sc) { /* ... */ }
-
-
-
-
-
-
-
-
+        System.out.println("✅ Contacto eliminado correctamente.");
+    }
 
     public static void modificarTelefono(Scanner sc) {
         if (agenda == null) {
@@ -131,15 +173,17 @@ public class MenuOpciones {
         }
         return libres;
     }
+
+    public static void mostrarAgenda(Scanner sc) {
+        if (agenda == null) {
+            System.out.println("⚠️ Primero debes crear una agenda.");
+            return;
+        }
+        Contacto[] contactos = agenda.getContactos();
+
+        for (int i = 0; i < contactos.length; i++) {
+            System.out.println("----Tus contactos guardados son----");
+            System.out.println("Contacto " + i + ": " + contactos[i]);
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-

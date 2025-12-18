@@ -16,7 +16,8 @@ public class Main {
             System.out.println("7. Modificar teléfono");
             System.out.println("8. Agenda llena?");
             System.out.println("9. Espacios libres");
-            System.out.println("10. Salir");
+            System.out.println("10. Mostrar contactos");
+            System.out.println("11. Salir");
             System.out.print("Elige una opción: ");
 
             opcion = sc.nextInt();
@@ -33,7 +34,8 @@ public class Main {
                 case 7 -> MenuOpciones.modificarTelefono(sc);
                 case 8 -> MenuOpciones.agendaLlena();
                 case 9 -> MenuOpciones.espaciosLibres();
-                case 10 -> System.out.println("👋 Gracias por usar la Agenda Telefónica. ¡Hasta pronto!");
+                case 10 -> MenuOpciones.mostrarAgenda(sc);
+                case 11 -> System.out.println("👋 Gracias por usar la Agenda Telefónica. ¡Hasta pronto!");
                 default -> System.out.println("❌ Opción inválida.");
             }
         } while (opcion != 10);

@@ -47,11 +47,20 @@ public class Agenda {
         return null; // No se encontró
     }
 
+
+    public Contacto[] getContactos() {
+        return contactos;
+    }
+
     public int getContador() {
         return contador;
     }
 
+    public int setContador(int contador){
+        return contador;
+    }
     public int getCapacidad() {
         return capacidad;
     }
+// Aquí puedes ir agregando buscar, eliminar, modificar, etc.
 }
